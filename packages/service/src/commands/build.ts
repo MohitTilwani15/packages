@@ -70,6 +70,7 @@ const build = async (options: IRunOptions) => {
   };
 
   run('client');
+  run('modernClient');
   run('server');
   run('isomorphic');
 
