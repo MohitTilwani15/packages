@@ -13,7 +13,7 @@ export let modernClient: webpack.Configuration = merge(base, {
     app: runtimeRoot('src/client/index'),
   },
   output: {
-    path: runtimeRoot('dist/client'),
+    path: runtimeRoot('dist/modernClient'),
     filename: '[name].[chunkHash].js',
     publicPath: '/client/',
     chunkFilename: '[name].[id].[chunkhash].js',
@@ -60,6 +60,6 @@ if (isProd) {
   ]);
 }
 
-modernClient = require(runtimeRoot('.vuesion/webpack.config'))(modernClient, 'client');
+modernClient = require(runtimeRoot('.vuesion/webpack.config'))(modernClient, 'modernClient');
 
 export default modernClient;

@@ -16,7 +16,7 @@ export let client: webpack.Configuration = merge(base, {
     path: runtimeRoot('dist/client'),
     filename: '[name].[chunkHash].es5.js',
     publicPath: '/client/',
-    chunkFilename: '[name].[id].[chunkhash].js',
+    chunkFilename: '[name].[id].[chunkhash].es5.js',
   },
   optimization: {
     splitChunks: {

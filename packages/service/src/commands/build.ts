@@ -10,11 +10,13 @@ import { packageRoot } from '../utils/path';
   options: [
     { flags: '-a, --analyze', description: 'Analyze client bundle.' },
     { flags: '-spa, --spa', description: 'Build only client-side application.' },
+    { flags: '-nt, --nontranspiled', description: 'Create a non transpiled version of js.' },
   ],
 })
 export class Build implements ICommandHandler {
   public analyze: boolean;
   public spa: boolean;
+  public nontranspiled: boolean;
 
   public async run(args: string[], options: IRunOptions) {
     process.env.NODE_ENV = 'production';
@@ -30,7 +32,7 @@ export class Build implements ICommandHandler {
     } else if (this.spa) {
       spa(options).catch((e) => logErrorBold(e));
     } else {
-      build(options).catch((e) => logErrorBold(e));
+      build(options, this.nontranspiled).catch((e) => logErrorBold(e));
     }
   }
 }
@@ -43,7 +45,7 @@ const runWebpack = (configName: string, options: IRunOptions) => {
   );
 };
 
-const build = async (options: IRunOptions) => {
+const build = async (options: IRunOptions, nontranspiled: boolean) => {
   const promises = [];
   const startTime: number = Date.now();
   const spinner = new Spinner();
@@ -69,8 +71,11 @@ const build = async (options: IRunOptions) => {
     );
   };
 
+  if (nontranspiled) {
+    run('modernClient');
+  }
+
   run('client');
-  run('modernClient');
   run('server');
   run('isomorphic');
 
