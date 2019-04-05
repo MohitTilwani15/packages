@@ -49,13 +49,14 @@ const build = async (options: IRunOptions, nontranspiled: boolean) => {
   const promises = [];
   const startTime: number = Date.now();
   const spinner = new Spinner();
+  const totalSteps = nontranspiled ? 4 : 3;
   let done = 0;
 
   const setSpinnerMessage = () => {
-    if (done === 3) {
+    if (done === totalSteps) {
       spinner.message = `Finished building production bundles in ${Date.now() - startTime}ms`;
     } else {
-      spinner.message = `Building production bundles ${done}/3 ...`;
+      spinner.message = `Building production bundles ${done}/${totalSteps} ...`;
     }
   };
 
@@ -119,6 +120,10 @@ const spa = async (options: IRunOptions) => {
     handleProcessError(e, spinner);
   }
 
-  spinner.message = `Production build finished in ${Date.now() - startTime}ms`;
+  spinner.message = `
+    Production build finished in ${Date.now() - startTime}ms
+    Tip: built files are meant to be served over an HTTP server.
+    Opening index.html over file:// won't work.
+  `;
   spinner.stop();
 };

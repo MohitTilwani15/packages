@@ -4,7 +4,6 @@ import { base } from './base';
 import { packageRoot, runtimeRoot } from '../../utils/path';
 
 const HTMLPlugin = require('html-webpack-plugin');
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 
@@ -13,7 +12,7 @@ export let modernClient: webpack.Configuration = merge(base, {
     app: runtimeRoot('src/client/index'),
   },
   output: {
-    path: runtimeRoot('dist/modernClient'),
+    path: runtimeRoot('dist/client'),
     filename: '[name].[chunkHash].js',
     publicPath: '/client/',
     chunkFilename: '[name].[id].[chunkhash].js',
@@ -33,7 +32,6 @@ export let modernClient: webpack.Configuration = merge(base, {
   plugins: [
     new webpack.DefinePlugin({ CLIENT: true, SERVER: false }),
     new HTMLPlugin({ template: runtimeRoot('src/index.template.html'), spa: false }),
-    new ScriptExtHtmlWebpackPlugin({ module: '/\.js$/' }),
   ],
 }) as any;
 
