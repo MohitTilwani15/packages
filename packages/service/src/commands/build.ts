@@ -10,14 +10,17 @@ import { packageRoot } from '../utils/path';
   options: [
     { flags: '-a, --analyze', description: 'Analyze client bundle.' },
     { flags: '-spa, --spa', description: 'Build only client-side application.' },
+    { flags: '-theme, --theme [theme]', description: 'Build application with the theme passed in the args.' },
   ],
 })
 export class Build implements ICommandHandler {
   public analyze: boolean;
   public spa: boolean;
+  public theme: string;
 
   public async run(args: string[], options: IRunOptions) {
     process.env.NODE_ENV = 'production';
+    process.env.APP_THEME = this.theme || 'default';
 
     try {
       await runProcess('rimraf', ['./dist'], { silent: true, ...options });

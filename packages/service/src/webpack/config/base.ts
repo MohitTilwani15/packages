@@ -1,10 +1,19 @@
 import * as webpack from 'webpack';
-import { analyze, isDev, isProd } from './utils';
+import { analyze, isDev, isProd, theme } from './utils';
 import { packageRoot, runtimeRoot } from '../../utils/path';
 
 const { VueLoaderPlugin } = require('vue-loader');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+
+let brandVariablesPath: object;
+const whitelabelConfig = require(runtimeRoot('.vuesion/whitelabel.config'));
+
+if (whitelabelConfig[theme] && whitelabelConfig[theme].scssVariables) {
+  brandVariablesPath = whitelabelConfig[theme].scssVariables;
+} else {
+  brandVariablesPath = whitelabelConfig['default'].scssVariables;
+}
 
 export let base: webpack.Configuration = {
   stats: {
@@ -23,6 +32,7 @@ export let base: webpack.Configuration = {
     alias: {
       vue$: 'vue/dist/vue.esm.js',
       '@': runtimeRoot('src'),
+      brandVariables: runtimeRoot(brandVariablesPath),
     },
   },
   module: {
