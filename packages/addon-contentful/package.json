@@ -1,6 +1,6 @@
 {
   "name": "@vuesion/addon-contentful",
-  "version": "1.0.1",
+  "version": "2.1.1",
   "description": "vuesion contentful integration",
   "author": "Johannes Werner <johannes.werner86@gmail.com>",
   "homepage": "https://github.com/vuesion/packages#readme",
@@ -29,13 +29,18 @@
     "url": "https://github.com/vuesion/packages/issues"
   },
   "dependencies": {
-    "contentful": "7.3.0",
-    "express": "^4.16.4",
-    "lodash": "^4.17.11"
+    "@contentful/rich-text-html-renderer": "^13.1.0",
+    "contentful": "^7.5.0"
   },
   "devDependencies": {
-    "rimraf": "2.6.3",
-    "typescript": "^3.3.3"
+    "express": "^4.16.4",
+    "lodash": "^4.17.11",
+    "rimraf": "^2.6.3",
+    "typescript": "^3.4.5"
+  },
+  "peerDependencies": {
+    "express": ">=4",
+    "lodash": ">=4"
   },
   "publishConfig": {
     "access": "public"
